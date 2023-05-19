@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ativo {
+  id              Int         @id @default(autoincrement())
+  codigo          String      @unique
+  status          String
+  descricao       String
+  aquisicao       DateTime?
+  valor_aquisicao Float?
+  valor_atual     Float?
+  depreciacao     Int?
+  codsubgrupo     Int
+  codcentrocusto  Int
+  codmarca        Int
+  marca           Marca       @relation(fields: [codmarca], references: [id])
+  subgrupo        SubGrupo    @relation(fields: [codsubgrupo], references: [id])
+  centrocusto     CentroCusto @relation(fields: [codcentrocusto], references: [id])
+
+  @@map("ativos")
+}
+
+model Marca {
+  id        Int     @id @default(autoincrement())
+  descricao String
+  Ativo     Ativo[]
+
+  @@map("marcas")
+}
+
+model CentroCusto {
+  id        Int     @id @default(autoincrement())
+  descricao String
+  Ativo     Ativo[]
+
+  @@map("centro_custo")
+}
+
+model Grupo {
+  id        Int        @id @default(autoincrement())
+  descricao String
+  SubGrupo  SubGrupo[]
+
+  @@map("grupos")
+}
+
+model SubGrupo {
+  id        Int     @id @default(autoincrement())
+  codgrupo  Int
+  descricao String
+  grupo     Grupo   @relation(fields: [codgrupo], references: [id])
+  Ativo     Ativo[]
+
+  @@map("subgrupos")
+}
+
+model Local {
+  id        Int    @id @default(autoincrement())
+  descricao String
+  filial    String
+
+  @@map("locais")
+}
+
+model Motivo {
+  id         Int    @id @default(autoincrement())
+  descricao  String
+  explicacao String
+
+  @@map("motivos")
+}
