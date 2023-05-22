@@ -4,7 +4,7 @@ import { prismaClient } from "../database";
 export class CentroCustoController {
     async list(request: Request, response: Response) {
         const centroCustoController = await prismaClient.centroCusto.findMany();
-        response.json(centroCustoController);
+        return response.json(centroCustoController);
     }
 
     async handle(request: Request, response: Response) {
@@ -14,7 +14,7 @@ export class CentroCustoController {
                 descricao
             }
         });
-        response.json(centroCustoController);
+        return response.json(centroCustoController);
     }
 
     async update(request: Request, response: Response) {
@@ -27,7 +27,7 @@ export class CentroCustoController {
                 id: id
             }
         });
-        response.json(centroCustoController);
+        return response.json(centroCustoController);
     }
 
     async delete(request: Request, response: Response) {
@@ -37,6 +37,6 @@ export class CentroCustoController {
                 id: id
             }
         });
-        response.json(centroCustoController);
+        return response.json(centroCustoController);
     }
 }

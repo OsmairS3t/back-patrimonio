@@ -35,16 +35,29 @@ routes.get('/grupos', grupoController.list);
 routes.post('/grupos', grupoController.handle);
 routes.put('/grupos', grupoController.update);
 routes.delete('/grupos', grupoController.delete);
+
 //SubGrupos
 routes.get('/subgrupos', subGrupoController.list);
+routes.post('/subgrupos', subGrupoController.handle);
+routes.put('/subgrupos', subGrupoController.update);
+routes.delete('/subgrupos', subGrupoController.delete);
 
 //Locais
 routes.get('/locais', localController.list);
+routes.post('/locais', localController.handle);
+routes.put('/locais', localController.update);
+routes.delete('/locais', localController.delete);
 
 //Motivos
 routes.get('/motivos', motivoController.list);
+routes.post('/motivos', motivoController.handle);
+routes.put('/motivos', motivoController.update);
+routes.delete('/motivos', motivoController.delete);
 
 //Ativos
 routes.get('/ativos', ativoController.list);
+routes.post('/ativos', ativoController.handle);
+routes.put('/ativos', ativoController.update);
+routes.delete('/ativos', ativoController.delete);
 
 export { routes };

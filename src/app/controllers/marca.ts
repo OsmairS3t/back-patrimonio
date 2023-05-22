@@ -4,7 +4,7 @@ import { prismaClient } from "../database";
 export class MarcaController {
     async list(request: Request, response: Response) {
         const marcaController = await prismaClient.marca.findMany()
-        response.json(marcaController)
+        return response.json(marcaController)
     }
 
     async handle(request: Request, response: Response) {
@@ -14,7 +14,7 @@ export class MarcaController {
                 descricao
             }
         })
-        response.json(marcaController)
+        return response.json(marcaController)
     }
 
     async update(request: Request, response: Response) {
@@ -27,7 +27,7 @@ export class MarcaController {
                 id: id
             }
         })
-        response.json(marcaController)
+        return response.json(marcaController)
     }
 
     async delete(request: Request, response: Response) {
@@ -37,7 +37,7 @@ export class MarcaController {
                 id: id
             }
         })
-        response.json(marcaController)
+        return response.json(marcaController)
     }
 
 }
