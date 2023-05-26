@@ -75,3 +75,11 @@ model Motivo {
 
   @@map("motivos")
 }
+
+model Usuario {
+  id    Int    @id @default(autoincrement())
+  nome  String
+  email String
+
+  @@map("usuarios")
+}
