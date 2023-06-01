@@ -3,19 +3,38 @@ import { prismaClient } from '../database';
 
 export class SubGrupoController {
     async list(request: Request, response: Response) {
-        const subGrupoController = await prismaClient.subGrupo.findMany()
+        const subGrupoController = await prismaClient.subGrupo.findMany({
+            include: {
+                grupo: {
+                    select: {
+                        id: true,
+                        descricao: true
+                    }
+                }
+            },
+            orderBy: {
+                grupo: {
+                    descricao: 'asc'
+                }
+            }
+        })
         return response.json(subGrupoController)
     }
 
     async handle(request: Request, response: Response) {
         const { codgrupo, descricao } = request.body
-        const subGrupoController = await prismaClient.subGrupo.create({
-            data: {
-                codgrupo,
-                descricao
-            }
-        })
-        return response.json(subGrupoController)
+        const subGrupoInclude = {
+            codgrupo,
+            descricao
+        }
+        try {
+            const subGrupoController = await prismaClient.subGrupo.create({
+                data: subGrupoInclude
+            })
+            return response.json(subGrupoController)
+        } catch (error) {
+            response.json(error)
+        }
     }
 
     async update(request: Request, response: Response) {

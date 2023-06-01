@@ -3,7 +3,13 @@ import { prismaClient } from '../database';
 
 export class AtivoController {
     async list(request: Request, response: Response) {
-        const ativoController = await prismaClient.ativo.findMany()
+        const ativoController = await prismaClient.ativo.findMany({
+            include: {
+                centrocusto: true,
+                marca: true,
+                subgrupo: true
+            }
+        })
         return response.json(ativoController)
     }
 
