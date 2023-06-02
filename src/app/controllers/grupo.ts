@@ -32,12 +32,15 @@ export class GrupoController {
 
     async delete(request: Request, response: Response) {
         const { id } = request.body;
-        const grupoController = await prismaClient.grupo.delete({
-            where: {
-                id: id
-            }
-        });
-        return response.json(grupoController);
+        try {
+            const grupoController = await prismaClient.grupo.delete({
+                where: {
+                    id: id
+                }
+            });
+            return response.json(grupoController);
+        } catch (error) {
+            console.log(error)
+        }
     }
-
 }
